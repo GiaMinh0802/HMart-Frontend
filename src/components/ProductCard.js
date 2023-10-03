@@ -12,8 +12,8 @@ const ProductCard = () => {
                     </Link>
                 </div>
                 <div className="product-image">
-                    <img src="images/watch-2.jpg" className='img-fluid' alt="product image" />
-                    <img src="images/watch-1.jpg" className='img-fluid' alt="product image" />
+                    <img src="images/watch-2.jpg" className='img-fluid' alt="productimg" />
+                    <img src="images/watch-1.jpg" className='img-fluid' alt="productimg" />
                 </div>
                 <div className="product-details">
                     <h6 className="brand">Apple</h6>

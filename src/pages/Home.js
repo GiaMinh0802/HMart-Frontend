@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Marquee from 'react-fast-marquee'
 import ProductCard from '../components/ProductCard'
+import SpecialProduct from '../components/SpecialProduct'
 
 const Home = () => {
   return (
@@ -180,6 +181,81 @@ const Home = () => {
             <ProductCard />
             <ProductCard />
             <ProductCard />
+          </div>
+        </div>
+      </section>
+      <section className="famous-wrapper py-5 home-wrapper-2">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-3">
+              <div className="famous-card position-relative">
+                <img src="images/famous-1.png" className='img-fluid' alt="famous" />
+                <div className="famous-content position-absolute">
+                  <h5>BIG SCREEN</h5>
+                  <h6>Smart Watch Series 7</h6>
+                  <p>From $399 or $16.62/mo. for 24 mo.</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="famous-card position-relative">
+                <img src="images/famous-2.png" className='img-fluid' alt="famous" />
+                <div className="famous-content position-absolute">
+                  <h5 className='text-dark'>STUDIO DISPLAY</h5>
+                  <h6 className='text-dark'>600 nits of brightness</h6>
+                  <p className='text-dark'>27-inch 5K Retina display</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="famous-card position-relative">
+                <img src="images/famous-3.png" className='img-fluid' alt="famous" />
+                <div className="famous-content position-absolute">
+                  <h5 className='text-dark'>SMARTPHONES</h5>
+                  <h6 className='text-dark'>Smartphone 15 Pro</h6>
+                  <p className='text-dark'>From $999.00 or $41.62/mo. for 24 mo.</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="famous-card position-relative">
+                <img src="images/famous-4.png" className='img-fluid' alt="famous" />
+                <div className="famous-content position-absolute">
+                  <h5 className='text-dark'>HOME SPEAKERS</h5>
+                  <h6 className='text-dark'>Room-filling sound</h6>
+                  <p className='text-dark'>From $699 or $116.58/mo. for 12 mo.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="special-wrapper home-wrapper-2 py-5">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-12">
+              <h3 className="section-heading">Special Products</h3>
+            </div>
+          </div>
+          <div className="row">
+            <SpecialProduct />
+            <SpecialProduct />
+            <SpecialProduct />
+          </div>
+        </div>
+      </section>
+      <section className="popular-wrapper py-5 home-wrapper-2">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-12">
+              <h3 className="section-heading">Our Popular Products</h3>
+            </div>
+            <div className="row">
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+            </div>
           </div>
         </div>
       </section>
