@@ -9,8 +9,12 @@ import Forgotpassword from './pages/Forgotpassword';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import OurStore from './pages/OurStore';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import RefundPolicy from './pages/RefundPolicy';
 import Resetpassword from './pages/Resetpassword';
+import ShippingPolicy from './pages/ShippingPolicy';
 import Signup from './pages/Signup';
+import TermAndConditions from './pages/TermAndConditions';
 import Wishlist from './pages/Wishlist';
 
 function App() {
@@ -29,6 +33,10 @@ function App() {
             <Route path='forgot-password' element={<Forgotpassword />} />
             <Route path='signup' element={<Signup />} />
             <Route path='reset-password' element={<Resetpassword />} />
+            <Route path='privacy-policy' element={<PrivacyPolicy />} />
+            <Route path='refund-policy' element={<RefundPolicy />} />
+            <Route path='shipping-policy' element={<ShippingPolicy />} />
+            <Route path='term-conditions' element={<TermAndConditions />} />
           </Route>
         </Routes>
       </BrowserRouter>
