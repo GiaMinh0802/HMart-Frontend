@@ -184,7 +184,7 @@ const SingleProduct = () => {
                                     <h4>Write a Review</h4>
                                     <form action="" className='d-flex flex-column gap-15'>
                                         <div>
-                                            <ReactStars count={5} size={24} value={3} edit={true} activeColor='#ffd700' />
+                                            <ReactStars count={5} size={24} value={0} edit={true} activeColor='#ffd700' />
                                         </div>
                                         <div>
                                             <textarea name="" id="" className='w-100 form-control' cols="30" rows="4" placeholder='Comments'></textarea>

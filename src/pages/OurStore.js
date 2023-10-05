@@ -4,6 +4,7 @@ import BreadCrumb from '../components/BreadCrumb'
 import Color from '../components/Color'
 import Meta from '../components/Meta'
 import ProductCard from '../components/ProductCard'
+import watch from '../images/watch-1.jpg'
 
 const OurStore = () => {
     const [grid, setGrid] = useState(4)
@@ -92,7 +93,7 @@ const OurStore = () => {
                                 <div>
                                     <div className="random-products mb-3 d-flex">
                                         <div className="w-50">
-                                            <img src="images/watch-1.jpg" className='img-fluid' alt="watch" />
+                                            <img src={watch} className='img-fluid' alt="watch" />
                                         </div>
                                         <div className="w-50">
                                             <h5>Kids headphones bulk 10 pack multi colored for students</h5>
@@ -102,7 +103,7 @@ const OurStore = () => {
                                     </div>
                                     <div className="random-products d-flex">
                                         <div className="w-50">
-                                            <img src="images/watch-1.jpg" className='img-fluid' alt="watch" />
+                                            <img src={watch} className='img-fluid' alt="watch" />
                                         </div>
                                         <div className="w-50">
                                             <h5>Kids headphones bulk 10 pack multi colored for students</h5>
