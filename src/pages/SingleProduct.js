@@ -9,11 +9,12 @@ import { TbGitCompare } from 'react-icons/tb'
 import { AiOutlineHeart } from 'react-icons/ai'
 
 const SingleProduct = () => {
+    const linkimg = "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
     const props = {
         width: 400,
         height: 600,
         zoomWidth: 600,
-        img: "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
+        img: linkimg
     }
     const [orderedProduct, setorderedProduct] = useState(true)
     const copyToCClipboard = (text) => {
@@ -40,18 +41,18 @@ const SingleProduct = () => {
                             </div>
                             <div className="other-product-images d-flex flex-wrap gap-15">
                                 <div>
-                                    <img src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg" className='img-fluid' alt="watch" />
+                                    <img src={linkimg} className='img-fluid' alt="watch" />
                                 </div>
                                 <div>
-                                    <img src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg" className='img-fluid' alt="watch" />
+                                    <img src={linkimg} className='img-fluid' alt="watch" />
 
                                 </div>
                                 <div>
-                                    <img src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg" className='img-fluid' alt="watch" />
+                                    <img src={linkimg} className='img-fluid' alt="watch" />
 
                                 </div>
                                 <div>
-                                    <img src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg" className='img-fluid' alt="watch" />
+                                    <img src={linkimg} className='img-fluid' alt="watch" />
                                 </div>
                             </div>
                         </div>
@@ -135,7 +136,7 @@ const SingleProduct = () => {
                                     </div>
                                     <div className='d-flex gap-10 align-items-center my-3'>
                                         <h3 className='product-heading'>Product Link :</h3>
-                                        <a href='#/' onClick={() => { copyToCClipboard("https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg") }}>
+                                        <a href='#/' onClick={() => { copyToCClipboard(linkimg) }}>
                                             Copy Product Link
                                         </a>
                                     </div>
