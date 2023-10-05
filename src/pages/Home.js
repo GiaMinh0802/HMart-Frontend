@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Meta from '../components/Meta'
 import Marquee from 'react-fast-marquee'
 import ProductCard from '../components/ProductCard'
 import SpecialProduct from '../components/SpecialProduct'
@@ -7,6 +8,7 @@ import SpecialProduct from '../components/SpecialProduct'
 const Home = () => {
   return (
     <>
+      <Meta title={"HMart E-Commerce"} />
       <section className="home-wrapper-1 py-5">
         <div className="container-xxl">
           <div className="row">

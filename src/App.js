@@ -14,6 +14,7 @@ import RefundPolicy from './pages/RefundPolicy';
 import Resetpassword from './pages/Resetpassword';
 import ShippingPolicy from './pages/ShippingPolicy';
 import Signup from './pages/Signup';
+import SingleProduct from './pages/SingleProduct';
 import TermAndConditions from './pages/TermAndConditions';
 import Wishlist from './pages/Wishlist';
 
@@ -26,7 +27,8 @@ function App() {
             <Route index element={<Home />} />
             <Route path='about' element={<About />} />
             <Route path='contact' element={<Contact />} />
-            <Route path='store' element={<OurStore />} />
+            <Route path='product' element={<OurStore />} />
+            <Route path='product/:id' element={<SingleProduct />} />
             <Route path='compare-product' element={<CompareProduct />} />
             <Route path='wishlist' element={<Wishlist />} />
             <Route path='login' element={<Login />} />
