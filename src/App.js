@@ -4,6 +4,7 @@ import './App.css';
 import Layout from './components/Layout';
 import About from './pages/About';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 import CompareProduct from './pages/CompareProduct';
 import Contact from './pages/Contact';
 import Forgotpassword from './pages/Forgotpassword';
@@ -31,6 +32,7 @@ function App() {
             <Route path='product' element={<OurStore />} />
             <Route path='product/:id' element={<SingleProduct />} />
             <Route path='cart' element={<Cart />} />
+            <Route path='checkout' element={<Checkout />} />
             <Route path='compare-product' element={<CompareProduct />} />
             <Route path='wishlist' element={<Wishlist />} />
             <Route path='login' element={<Login />} />

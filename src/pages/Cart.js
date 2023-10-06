@@ -2,6 +2,7 @@ import React from 'react'
 import BreadCrumb from '../components/BreadCrumb'
 import Meta from '../components/Meta'
 import watch from '../images/watch-2.jpg'
+import Container from '../components/Container'
 import { AiFillDelete } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 
@@ -10,8 +11,7 @@ const Cart = () => {
         <>
             <Meta title={"Cart"} />
             <BreadCrumb title='Cart' />
-            <section className="cart-wrapper py-5 home-wrapper-2">
-                <div className="container-xxl">
+            <Container class1="cart-wrapper py-5 home-wrapper-2">
                     <div className="row">
                         <div className="col-12">
                             <div className="cart-header py-3 d-flex justify-content-between align-items-center">
@@ -58,8 +58,7 @@ const Cart = () => {
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+            </Container>
         </>
     )
 }
