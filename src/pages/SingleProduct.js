@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactStars from 'react-rating-stars-component'
 import BreadCrumb from '../components/BreadCrumb'
 import Meta from '../components/Meta'
@@ -8,14 +8,24 @@ import Color from '../components/Color'
 import { TbGitCompare } from 'react-icons/tb'
 import { AiOutlineHeart } from 'react-icons/ai'
 import Container from '../components/Container'
+import { useLocation } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { getSingleProduct } from '../features/product/productSlice'
 
 const SingleProduct = () => {
+    const location = useLocation()
+    const ProductId = location.pathname.split("/")[2]
+    const dispatch = useDispatch()
+    const productState = useSelector((state) => state.product.product)
+    useEffect(() => {
+        dispatch(getSingleProduct(ProductId))
+    }, [])
     const linkimg = "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
     const props = {
         width: 400,
         height: 600,
         zoomWidth: 600,
-        img: linkimg
+        img: productState?.images[0]?.url ? productState?.images[0]?.url : linkimg
     }
     const [orderedProduct, setorderedProduct] = useState(true)
     const copyToCClipboard = (text) => {
@@ -40,29 +50,22 @@ const SingleProduct = () => {
                             </div>
                         </div>
                         <div className="other-product-images d-flex flex-wrap gap-15">
-                            <div>
-                                <img src={linkimg} className='img-fluid' alt="watch" />
-                            </div>
-                            <div>
-                                <img src={linkimg} className='img-fluid' alt="watch" />
-
-                            </div>
-                            <div>
-                                <img src={linkimg} className='img-fluid' alt="watch" />
-
-                            </div>
-                            <div>
-                                <img src={linkimg} className='img-fluid' alt="watch" />
-                            </div>
+                            {productState?.images.map((item, index) => {
+                                return (
+                                    <div>
+                                        <img src={item?.url} className='img-fluid' alt="watch" />
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                     <div className="col-6">
                         <div className="main-product-details">
                             <div className="border-bottom">
-                                <h3 className='title'>Kids Headphones Bulk 10 Pack Multi Colored For Students</h3>
+                                <h3 className='title'>{productState?.title}</h3>
                             </div>
                             <div className="border-bottom py-3">
-                                <p className='price'>$ 100</p>
+                                <p className='price'>$ {productState?.price}</p>
                                 <div className="d-flex align-items-center gap-10">
                                     <ReactStars count={5} size={24} value={3} edit={false} activeColor='#ffd700' />
                                     <p className='mb-0 t-review'>(2 Reviews)</p>
@@ -71,20 +74,12 @@ const SingleProduct = () => {
                             </div>
                             <div className="py-3">
                                 <div className='d-flex gap-10 align-items-center my-2'>
-                                    <h3 className='product-heading'>Type :</h3>
-                                    <p className='product-data'>Watch</p>
-                                </div>
-                                <div className='d-flex gap-10 align-items-center my-2'>
                                     <h3 className='product-heading'>Brand :</h3>
-                                    <p className='product-data'>Apple</p>
+                                    <p className='product-data'>{productState?.brand}</p>
                                 </div>
                                 <div className='d-flex gap-10 align-items-center my-2'>
                                     <h3 className='product-heading'>Category :</h3>
-                                    <p className='product-data'>Watch</p>
-                                </div>
-                                <div className='d-flex gap-10 align-items-center my-2'>
-                                    <h3 className='product-heading'>Tags :</h3>
-                                    <p className='product-data'>Watch</p>
+                                    <p className='product-data'>{productState?.category}</p>
                                 </div>
                                 <div className='d-flex gap-10 align-items-center my-2'>
                                     <h3 className='product-heading'>Availablity :</h3>
@@ -106,7 +101,7 @@ const SingleProduct = () => {
                                 <div className='d-flex align-items-center gap-15 flex-row mt-2 mb-3'>
                                     <h3 className='product-heading'>Quantity :</h3>
                                     <div className=''>
-                                        <input type="number" name='' min={1} max={999} value={1} className='form-control' style={{ width: "70px" }} id='' />
+                                        <input type="number" name='' min={1} max={999} value={productState?.quantity} className='form-control' style={{ width: "70px" }} id='' />
                                     </div>
                                     <div className='d-flex align-items-center gap-30 ms-5'>
                                         <button className='button border-0' type='submit'>Add To Cart</button>
@@ -136,7 +131,7 @@ const SingleProduct = () => {
                                 </div>
                                 <div className='d-flex gap-10 align-items-center my-3'>
                                     <h3 className='product-heading'>Product Link :</h3>
-                                    <a href='#/' onClick={() => { copyToCClipboard(linkimg) }}>
+                                    <a href='#/' onClick={() => { copyToCClipboard(window.location.href) }}>
                                         Copy Product Link
                                     </a>
                                 </div>
@@ -150,8 +145,9 @@ const SingleProduct = () => {
                     <div className="col-12">
                         <h4>Description</h4>
                         <div className="bg-white p-3">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <p dangerouslySetInnerHTML={{
+                                __html: productState?.description
+                            }}>
                             </p>
                         </div>
                     </div>

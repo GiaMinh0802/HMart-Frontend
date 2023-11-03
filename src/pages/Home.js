@@ -1,13 +1,33 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux"
+import { Link, useNavigate } from 'react-router-dom'
 import Meta from '../components/Meta'
 import Marquee from 'react-fast-marquee'
 import ProductCard from '../components/ProductCard'
 import SpecialProduct from '../components/SpecialProduct'
 import Container from '../components/Container'
 import { services } from '../utils/Data'
+import ReactStars from 'react-rating-stars-component'
+import prodcompare from '../images/prodcompare.svg'
+import wish from '../images/wish.svg'
+import view from '../images/view.svg'
+import addcart from '../images/add-cart.svg'
+import { getProducts, addToWishlist } from '../features/product/productSlice'
+import noProduct from '../images/noproduct.png'
 
 const Home = () => {
+  const productState = useSelector((state) => state?.product?.products)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  useEffect(() => {
+    GetProducts()
+  }, [])
+  const GetProducts = () => {
+    dispatch(getProducts())
+  }
+  const AddToWishlist = (id) => {
+    dispatch(addToWishlist(id))
+  }
   return (
     <>
       <Meta title={"HMart E-Commerce"} />
@@ -89,31 +109,31 @@ const Home = () => {
             <div className="categories d-flex flex-wrap justify-content-between align-items-center">
               <div className='d-flex gap align-items-center'>
                 <div>
-                  <h6>Computers & Laptop</h6>
+                  <h6>SmartPhones</h6>
                   <p>10 Items</p>
                 </div>
                 <img src="images/laptop.jpg" alt="laptop" />
               </div>
               <div className='d-flex gap align-items-center'>
                 <div>
-                  <h6>Cameras & Videos</h6>
+                  <h6>Tablets</h6>
                   <p>10 Items</p>
                 </div>
                 <img src="images/camera.jpg" alt="camera" />
               </div>
               <div className='d-flex gap align-items-center'>
                 <div>
-                  <h6>Smart Watches</h6>
+                  <h6>Laptops</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/headphone.jpg" alt="watch" />
+                <img src="images/laptop.jpg" alt="watch" />
               </div>
               <div className='d-flex gap align-items-center'>
                 <div>
-                  <h6>Music & Gaming</h6>
+                  <h6>SmartWatches</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/laptop.jpg" alt="camera" />
+                <img src="images/camera.jpg" alt="camera" />
               </div>
               <div className='d-flex gap align-items-center'>
                 <div>
@@ -124,24 +144,24 @@ const Home = () => {
               </div>
               <div className='d-flex gap align-items-center'>
                 <div>
-                  <h6>Smart TV</h6>
+                  <h6>Speakers</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/tv.jpg" alt="tivi" />
+                <img src="images/speaker.jpg" alt="tivi" />
               </div>
               <div className='d-flex gap align-items-center'>
                 <div>
-                  <h6>Smart Watches</h6>
+                  <h6>Headphones</h6>
                   <p>10 Items</p>
                 </div>
                 <img src="images/headphone.jpg" alt="watch" />
               </div>
               <div className='d-flex gap align-items-center'>
                 <div>
-                  <h6>Music & Gaming</h6>
+                  <h6>Accessories</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/laptop.jpg" alt="camera" />
+                <img src="images/homeapp.jpg" alt="camera" />
               </div>
             </div>
           </div>
@@ -150,12 +170,50 @@ const Home = () => {
       <Container class1='featured-wrapper py-5 home-wrapper-2'>
         <div className="row">
           <div className="col-12">
-            <h3 className="section-heading">Featured Collection</h3>
+            <h3 className="section-heading">For You</h3>
           </div>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          <div className="row">
+            {
+              productState && productState?.map((item, index) => {
+                return (
+                  <div key={index} className="col-3">
+                    <div className="product-card position-relative">
+                      <div className="wishlist-icon position-absolute">
+                        <button className='border-0 bg-transparent' onClick={(e) => { AddToWishlist(item?._id) }}>
+                          <img src={wish} alt="wishlist" />
+                        </button>
+                      </div>
+                      <div className="product-image">
+                        <img src={item?.images[0].url ? item?.images[0]?.url : noProduct} className='img-fluid mx-auto' alt="productimg" />
+                        <img src={item?.images[1]?.url ? item?.images[1]?.url : noProduct} className='img-fluid mx-auto' alt="productimg" />
+                      </div>
+                      <div className="product-details">
+                        <h6 className="brand">{item?.brand}</h6>
+                        <h5 className="product-title">
+                          {item?.title}
+                        </h5>
+                        <ReactStars count={5} size={24} value={item?.totalrating} edit={false} activeColor='#ffd700' />
+                        <p className="price">${item?.price}</p>
+                      </div>
+                      <div className="action-bar position-absolute">
+                        <div className="d-flex flex-column gap-15">
+                          <button className='border-0 bg-transparent'>
+                            <img src={prodcompare} alt="compare" />
+                          </button>
+                          <button className='border-0 bg-transparent'>
+                            <img onClick={() => navigate('/product/'+item?._id)} src={view} alt="view" />
+                          </button>
+                          <button className='border-0 bg-transparent'>
+                            <img src={addcart} alt="addcart" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })
+            }
+          </div>
         </div>
       </Container>
       <Container class1='famous-wrapper py-5 home-wrapper-2'>
@@ -202,29 +260,52 @@ const Home = () => {
           </div>
         </div>
       </Container>
-      <Container class1='special-wrapper home-wrapper-2 py-5'>
-        <div className="row">
-          <div className="col-12">
-            <h3 className="section-heading">Special Products</h3>
-          </div>
-        </div>
-        <div className="row">
-          <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct />
-        </div>
-      </Container>
       <Container class1='popular-wrapper py-5 home-wrapper-2'>
         <div className="row">
           <div className="col-12">
             <h3 className="section-heading">Our Popular Products</h3>
           </div>
           <div className="row">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            {
+              productState && productState?.map((item, index) => {
+                return (
+                  <div key={index} className="col-3">
+                    <div className="product-card position-relative">
+                      <div className="wishlist-icon position-absolute">
+                        <button className='border-0 bg-transparent' onClick={(e) => { AddToWishlist(item?._id) }}>
+                          <img src={wish} alt="wishlist" />
+                        </button>
+                      </div>
+                      <div className="product-image">
+                        <img src={item?.images[0].url ? item?.images[0]?.url : noProduct} className='img-fluid mx-auto' alt="productimg" />
+                        <img src={item?.images[1]?.url ? item?.images[1]?.url : noProduct} className='img-fluid mx-auto' alt="productimg" />
+                      </div>
+                      <div className="product-details">
+                        <h6 className="brand">{item?.brand}</h6>
+                        <h5 className="product-title">
+                          {item?.title}
+                        </h5>
+                        <ReactStars count={5} size={24} value={item?.totalrating} edit={false} activeColor='#ffd700' />
+                        <p className="price">${item?.price}</p>
+                      </div>
+                      <div className="action-bar position-absolute">
+                        <div className="d-flex flex-column gap-15">
+                          <button className='border-0 bg-transparent'>
+                            <img src={prodcompare} alt="compare" />
+                          </button>
+                          <button className='border-0 bg-transparent'>
+                            <img onClick={() => navigate('/product/'+item?._id)} src={view} alt="view" />
+                          </button>
+                          <button className='border-0 bg-transparent'>
+                            <img src={addcart} alt="addcart" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })
+            }
           </div>
         </div>
       </Container>

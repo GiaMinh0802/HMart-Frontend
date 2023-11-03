@@ -798,3 +798,8 @@ footer .input-group-text {
   border: 1px solid var(--color-777777);
 }
 /* Shipping Page End */
+
+.error {
+  color: red;
+  font-size: 12px;
+}
