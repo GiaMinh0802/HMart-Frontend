@@ -23,10 +23,43 @@ const addToWishlist = async (prodId) => {
     }
 }
 
+const ratingProduct = async (ratingDetail) => {
+    const response = await axios.put(`${base_url}product/rating`, ratingDetail, config)
+    if (response.data) {
+        return response.data
+    }
+}
+
+const addToCart = async (cartData) => {
+    const response = await axios.post(`${base_url}user/cart`, cartData, config)
+    if (response.data) {
+        return response.data
+    }
+}
+
+const removeFromCart = async (cartItemId) => {
+    const response = await axios.delete(`${base_url}user/cart/${cartItemId}`, config)
+    if (response.data) {
+        return response.data
+    }
+}
+
+const updateQuantityFromCart = async (cartDetail) => {
+    const response = await axios.put(`${base_url}user/cart/${cartDetail.cartItemId}/${cartDetail.quantity}`, "", config)
+    if (response.data) {
+        return response.data
+    }
+}
+
 const productService = {
     getProducts,
     getSingleProduct,
-    addToWishlist
+    ratingProduct,
+    addToWishlist,
+    addToCart,
+    removeFromCart,
+    updateQuantityFromCart,
+
 }
 
 export default productService

@@ -1,6 +1,6 @@
 import { React } from "react"
-import { useDispatch } from "react-redux"
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux"
+import { Link, useNavigate } from 'react-router-dom'
 import BreadCrumb from '../components/BreadCrumb'
 import Meta from '../components/Meta'
 import Container from '../components/Container'
@@ -14,8 +14,8 @@ let schema = Yup.object().shape({
     password: Yup.string().required("Password is required"),
 })
 
-
 const Login = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const formik = useFormik({
         initialValues: {
@@ -25,6 +25,7 @@ const Login = () => {
         validationSchema: schema,
         onSubmit: (values) => {
             dispatch(login(values))
+            navigate('/')
         }
     })
 

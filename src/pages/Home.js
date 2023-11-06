@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from 'react-router-dom'
+import { Await, Link, useNavigate } from 'react-router-dom'
 import Meta from '../components/Meta'
 import Marquee from 'react-fast-marquee'
-import ProductCard from '../components/ProductCard'
-import SpecialProduct from '../components/SpecialProduct'
 import Container from '../components/Container'
 import { services } from '../utils/Data'
 import ReactStars from 'react-rating-stars-component'
@@ -13,6 +11,7 @@ import wish from '../images/wish.svg'
 import view from '../images/view.svg'
 import addcart from '../images/add-cart.svg'
 import { getProducts, addToWishlist } from '../features/product/productSlice'
+import { getUserCart, getUserWishlist } from '../features/user/userSlice'
 import noProduct from '../images/noproduct.png'
 
 const Home = () => {
@@ -20,10 +19,12 @@ const Home = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   useEffect(() => {
-    GetProducts()
+    loadPage()
   }, [])
-  const GetProducts = () => {
+  const loadPage = () => {
     dispatch(getProducts())
+    dispatch(getUserCart())
+    dispatch(getUserWishlist())
   }
   const AddToWishlist = (id) => {
     dispatch(addToWishlist(id))
