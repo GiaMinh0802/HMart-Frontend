@@ -30,8 +30,8 @@ const ProductCard = (props) => {
                                     </button>
                                 </div>
                                 <div className="product-image">
-                                    <img src={item?.images[0].url ? item?.images[0]?.url : noProduct} className='img-fluid mx-auto' alt="productimg" />
                                     <img src={item?.images[1]?.url ? item?.images[1]?.url : noProduct} className='img-fluid mx-auto' alt="productimg" />
+                                    <img src={item?.images[0]?.url ? item?.images[0]?.url : noProduct} className='img-fluid mx-auto' alt="productimg" />
                                 </div>
                                 <div className="product-details">
                                     <h6 className="brand">{item?.brand}</h6>

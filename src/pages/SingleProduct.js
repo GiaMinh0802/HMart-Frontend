@@ -25,10 +25,10 @@ const SingleProduct = () => {
     const ProductId = location.pathname.split("/")[2]
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const productState = useSelector((state) => state.product.product)
-    const cartState = useSelector(state => state.user.cart)
-    const orderState = useSelector(state => state.user.order)
-    const userId = useSelector(state => state.auth.user._id)
+    const productState = useSelector((state) => state?.product?.product)
+    const cartState = useSelector(state => state?.user?.cart)
+    const orderState = useSelector(state => state?.user?.order)
+    const userId = useSelector(state => state?.auth?.user?._id)
 
     useEffect(() => {
         dispatch(getSingleProduct(ProductId))

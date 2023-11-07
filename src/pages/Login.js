@@ -1,5 +1,5 @@
-import { React } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import React from "react"
+import { useDispatch } from "react-redux"
 import { Link, useNavigate } from 'react-router-dom'
 import BreadCrumb from '../components/BreadCrumb'
 import Meta from '../components/Meta'
