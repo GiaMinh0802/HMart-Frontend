@@ -1,4 +1,4 @@
-import { React } from "react"
+import React from "react"
 import { useDispatch } from "react-redux"
 import BreadCrumb from '../components/BreadCrumb'
 import Meta from '../components/Meta'

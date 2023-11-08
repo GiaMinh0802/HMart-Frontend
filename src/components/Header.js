@@ -9,9 +9,11 @@ import menu from '../images/menu.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import 'react-bootstrap-typeahead/css/Typeahead.css'
+import { getSingleProduct } from '../features/product/productSlice'
 
 const Header = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const cartState = useSelector(state => state?.user?.cart)
   const authState = useSelector(state => state.auth)
   const productState = useSelector(state => state?.product?.products)
@@ -73,7 +75,8 @@ const Header = () => {
                   id='pagination-example'
                   onPaginate={() => console.log('Results paginated')}
                   onChange={(selected) => {
-                    navigate(`/product/${selected[0].prod}`)
+                    navigate(`/product/${selected[0]?.prod}`)
+                    dispatch(getSingleProduct(selected[0]?.prod))
                   }}
                   options={productOpt}
                   paginate={paginate}
@@ -154,7 +157,9 @@ const Header = () => {
                     <NavLink to='/order'>My Orders</NavLink>
                     <NavLink to='/product'>Our Store</NavLink>
                     <NavLink to='/contact'>Contact</NavLink>
-                    <button onClick={handleLogout} className="border border-0 bg-transparent text-white text-uppercase" type='button'>Logout</button>
+                    {
+                      authState?.user === null ? null : <button onClick={handleLogout} className="border border-0 bg-transparent text-white text-uppercase" type='button'>Logout</button>
+                    }
                   </div>
                 </div>
               </div>

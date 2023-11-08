@@ -12,12 +12,34 @@ import { getProducts } from '../features/product/productSlice'
 const OurStore = () => {
     const [grid, setGrid] = useState(4)
     const productState = useSelector((state) => state?.product?.products)
+    const [brands, setBrands] = useState([])
+    const [categories, setCategories] = useState([])
+
+    //Filter States
+    const [category, setCategory] = useState(null)
+    const [brand, setBrand] = useState(null)
+    const [minPrice, setMinPrice] = useState(null)
+    const [maxPrice, setMaxPrice] = useState(null)
+    const [sort, setSort] = useState('title')
+
+    useEffect(() => {
+        let newBrands = []
+        let newCategories = []
+        for (let i = 0; i < productState.length; i++) {
+            const element = productState[i];
+            newBrands.push(element.brand)
+            newCategories.push(element.category)
+        }
+        setBrands(newBrands)
+        setCategories(newCategories)
+    }, [productState])
+
     const dispatch = useDispatch()
     useEffect(() => {
         GetProducts()
-    }, [])
+    }, [sort, brand, category, minPrice, maxPrice])
     const GetProducts = () => {
-        dispatch(getProducts())
+        dispatch(getProducts({ sort, brand, category, minPrice, maxPrice }))
     }
     return (
         <>
@@ -30,10 +52,11 @@ const OurStore = () => {
                             <h3 className="filter-title">Shop By Categories</h3>
                             <div>
                                 <ul className='ps-0'>
-                                    <li>Watch</li>
-                                    <li>TV</li>
-                                    <li>Camera</li>
-                                    <li>Laptop</li>
+                                    {
+                                        categories && [...new Set(categories)].map((item, index) => {
+                                            return <li key={index} onClick={() => setCategory(item)}>{item}</li>
+                                        })
+                                    }
                                 </ul>
                             </div>
                         </div>
@@ -43,18 +66,26 @@ const OurStore = () => {
                                 <h5 className="sub-title">Price</h5>
                                 <div className='d-flex align-items-center gap-10'>
                                     <div className="form-floating">
-                                        <input type="text" className="form-control" id="floatingInput" placeholder='From' />
+                                        <input onChange={(e) => setMinPrice(e.target.value)} type="number" className="form-control" id="floatingInput" placeholder='From' />
                                         <label htmlFor="floatingInput">From</label>
                                     </div>
                                     <div className="form-floating">
-                                        <input type="text" className="form-control" id="floatingInput1" placeholder='To' />
+                                        <input onChange={(e) => setMaxPrice(e.target.value)} type="number" className="form-control" id="floatingInput1" placeholder='To' />
                                         <label htmlFor="floatingInput1">To</label>
                                     </div>
                                 </div>
-                                <h5 className="sub-title">Colors</h5>
-                                <div>
-                                    <Color />
-                                </div>
+                            </div>
+                        </div>
+                        <div className='filter-card mb-3'>
+                            <h3 className="filter-title">Product Brands</h3>
+                            <div>
+                                <div className='product-tags d-flex flex-wrap align-items-center gap-10'>
+                                    {
+                                        brands && [...new Set(brands)].map((item, index) => {
+                                            return <span key={index} onClick={() => setBrand(item)} className="badge bg-light text-secondary rounded-3 py-2 px-3">{item}</span>
+                                        })
+                                    }
+                                </div >
                             </div>
                         </div>
                     </div>
@@ -63,19 +94,17 @@ const OurStore = () => {
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center gap-10">
                                     <p className="mb-0 d-block" style={{ "width": "100px" }}>Sort By:</p>
-                                    <select name="" defaultValue={"manual"} id="" className="form-control form-select">
-                                        <option value="manual">Featured</option>
-                                        <option value="best-selling">Best selling</option>
-                                        <option value="title-ascending">Alphabetically, A-Z</option>
-                                        <option value="title-descending">Alphabetically, Z-A</option>
-                                        <option value="price-ascending">Price, low to high</option>
-                                        <option value="price-descending">Price, high to low</option>
-                                        <option value="created-ascending">Date, old to new</option>
-                                        <option value="created-descending">Date, new to old</option>
+                                    <select onChange={(e) => setSort(e.target.value)} name="" defaultValue={"manual"} id="" className="form-control form-select">
+                                        <option value="title">Alphabetically, A-Z</option>
+                                        <option value="-title">Alphabetically, Z-A</option>
+                                        <option value="price">Price, low to high</option>
+                                        <option value="-price">Price, high to low</option>
+                                        <option value="createdAt">Date, old to new</option>
+                                        <option value="-createdAt">Date, new to old</option>
                                     </select>
                                 </div>
                                 <div className='d-flex align-items-center gap-10'>
-                                    <p className="totalproducts mb-0">21 Products</p>
+                                    <p className="totalproducts mb-0">{productState.length} Products</p>
                                     <div className="d-flex gap-10 align-items-center grid">
                                         <img onClick={() => { setGrid(3) }} src="images/gr4.svg" className='d-block img-fluid' alt="grid" />
                                         <img onClick={() => { setGrid(4) }} src="images/gr3.svg" className='d-block img-fluid' alt="grid" />

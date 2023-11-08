@@ -10,7 +10,7 @@ import { AiOutlineHeart } from 'react-icons/ai'
 import Container from '../components/Container'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getSingleProduct, addToCart, ratingProduct } from '../features/product/productSlice'
+import { getSingleProduct, addToCart, ratingProduct, getProducts } from '../features/product/productSlice'
 import { toast } from "react-toastify"
 import { getUserCart, getUserOrder } from '../features/user/userSlice'
 
@@ -26,6 +26,7 @@ const SingleProduct = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const productState = useSelector((state) => state?.product?.product)
+    const productsState = useSelector((state) => state?.product?.products)
     const cartState = useSelector(state => state?.user?.cart)
     const orderState = useSelector(state => state?.user?.order)
     const userId = useSelector(state => state?.auth?.user?._id)
@@ -34,6 +35,7 @@ const SingleProduct = () => {
         dispatch(getSingleProduct(ProductId))
         dispatch(getUserCart())
         dispatch(getUserOrder())
+        dispatch(getProducts())
     }, [])
 
     useEffect(() => {
@@ -72,6 +74,9 @@ const SingleProduct = () => {
             return false
         } else {
             dispatch(ratingProduct({ prodId: ProductId, star, comment }))
+            setTimeout(() => {
+                dispatch(getSingleProduct(ProductId))
+            }, 300)
         }
     }
 
@@ -90,6 +95,12 @@ const SingleProduct = () => {
         document.execCommand("copy")
         textField.remove()
     }
+
+    const [similarProduct, setSimilarProduct] = useState()
+    useEffect(() => {
+        setSimilarProduct(productsState)
+    }, [productsState])
+
     return (
         <>
             <Meta title={"Product Name"} />
@@ -272,13 +283,10 @@ const SingleProduct = () => {
             <Container class1="popular-wrapper py-5 home-wrapper-2">
                 <div className="row">
                     <div className="col-12">
-                        <h3 className="section-heading">Our Popular Products</h3>
+                        <h3 className="section-heading">Similar Products</h3>
                     </div>
                     <div className="row">
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
+                        <ProductCard data={similarProduct} />
                     </div>
                 </div>
             </Container>
