@@ -18,6 +18,14 @@ export const getProducts = createAsyncThunk('product/get-products', async (data,
     }
 })
 
+export const getProductsForRecommenders = createAsyncThunk('product/get-products-recommenders', async (thunkAPI) => {
+    try {
+        return await productService.getProductsForRecommenders()
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
 export const getSingleProduct = createAsyncThunk('product/get-product', async (prodId, thunkAPI) => {
     try {
         return await productService.getSingleProduct(prodId)
@@ -83,6 +91,21 @@ export const productSlice = createSlice({
                 state.products = action.payload
             })
             .addCase(getProducts.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.isSuccess = false
+                state.message = action.error
+            })
+            .addCase(getProductsForRecommenders.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(getProductsForRecommenders.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isError = false
+                state.isSuccess = true
+                state.productsRecommenders = action.payload
+            })
+            .addCase(getProductsForRecommenders.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.isSuccess = false

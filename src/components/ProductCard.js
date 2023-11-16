@@ -22,7 +22,7 @@ const ProductCard = (props) => {
             {
                 data?.map((item, index) => {
                     return (
-                        <div key={index} className={` ${location.pathname === "/product" ? `gr-${grid}` : "col-3"}`}>
+                        <div key={index} className={` ${location.pathname === "/product" ? `gr-${grid}` : "col-3"}`} style={{ marginBottom: '20px'}}>
                             <div className="product-card position-relative">
                                 <div className="wishlist-icon position-absolute">
                                     <button className='border-0 bg-transparent' onClick={(e) => { AddToWishlist(item?._id) }}>

@@ -35,7 +35,7 @@ const SingleProduct = () => {
         dispatch(getSingleProduct(ProductId))
         dispatch(getUserCart())
         dispatch(getUserOrder())
-        dispatch(getProducts())
+        dispatch(getProducts({ limit: 12, page: 1 }))
     }, [])
 
     useEffect(() => {

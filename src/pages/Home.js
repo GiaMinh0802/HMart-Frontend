@@ -10,19 +10,21 @@ import prodcompare from '../images/prodcompare.svg'
 import wish from '../images/wish.svg'
 import view from '../images/view.svg'
 import addcart from '../images/add-cart.svg'
-import { getProducts, addToWishlist } from '../features/product/productSlice'
+import { getProducts, getProductsForRecommenders, addToWishlist } from '../features/product/productSlice'
 import { getUserCart, getUserWishlist } from '../features/user/userSlice'
 import noProduct from '../images/noproduct.png'
 
 const Home = () => {
   const productState = useSelector((state) => state?.product?.products)
+  const productRecommenderState = useSelector((state) => state?.product?.productsRecommenders)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   useEffect(() => {
     loadPage()
   }, [])
   const loadPage = () => {
-    dispatch(getProducts())
+    dispatch(getProducts({ limit: 8, page: 1 }))
+    dispatch(getProductsForRecommenders())
     dispatch(getUserCart())
     dispatch(getUserWishlist())
   }
@@ -175,42 +177,42 @@ const Home = () => {
           </div>
           <div className="row">
             {
-              productState && productState?.map((item, index) => {
+              productRecommenderState && productRecommenderState?.map((item, index) => {
                 return (
-                  <div key={index} className="col-3">
-                    <div className="product-card position-relative">
-                      <div className="wishlist-icon position-absolute">
-                        <button className='border-0 bg-transparent' onClick={(e) => { AddToWishlist(item?._id) }}>
-                          <img src={wish} alt="wishlist" />
-                        </button>
-                      </div>
-                      <div className="product-image">
-                        <img src={item?.images[1]?.url ? item?.images[1]?.url : noProduct} className='img-fluid mx-auto' alt="productimg" />
-                        <img src={item?.images[0]?.url ? item?.images[0]?.url : noProduct} className='img-fluid mx-auto' alt="productimg" />
-                      </div>
-                      <div className="product-details">
-                        <h6 className="brand">{item?.brand}</h6>
-                        <h5 className="product-title">
-                          {item?.title}
-                        </h5>
-                        <ReactStars count={5} size={24} value={item?.totalrating} edit={false} activeColor='#ffd700' />
-                        <p className="price">${item?.price}</p>
-                      </div>
-                      <div className="action-bar position-absolute">
-                        <div className="d-flex flex-column gap-15">
-                          <button className='border-0 bg-transparent'>
-                            <img src={prodcompare} alt="compare" />
+                    <div key={index} className="col-3" style={{ marginBottom: '20px'}}>
+                      <div className="product-card position-relative">
+                        <div className="wishlist-icon position-absolute">
+                          <button className='border-0 bg-transparent' onClick={(e) => { AddToWishlist(item?._id) }}>
+                            <img src={wish} alt="wishlist" />
                           </button>
-                          <button className='border-0 bg-transparent'>
-                            <img onClick={() => navigate('/product/'+item?._id)} src={view} alt="view" />
-                          </button>
-                          <button className='border-0 bg-transparent'>
-                            <img src={addcart} alt="addcart" />
-                          </button>
+                        </div>
+                        <div className="product-image">
+                          <img src={item?.images[1]?.url ? item?.images[1]?.url : noProduct} className='img-fluid mx-auto' alt="productimg" />
+                          <img src={item?.images[0]?.url ? item?.images[0]?.url : noProduct} className='img-fluid mx-auto' alt="productimg" />
+                        </div>
+                        <div className="product-details">
+                          <h6 className="brand">{item?.brand}</h6>
+                          <h5 className="product-title">
+                            {item?.title}
+                          </h5>
+                          <ReactStars count={5} size={24} value={item?.totalrating} edit={false} activeColor='#ffd700' />
+                          <p className="price">${item?.price}</p>
+                        </div>
+                        <div className="action-bar position-absolute">
+                          <div className="d-flex flex-column gap-15">
+                            <button className='border-0 bg-transparent'>
+                              <img src={prodcompare} alt="compare" />
+                            </button>
+                            <button className='border-0 bg-transparent'>
+                              <img onClick={() => navigate('/product/' + item?._id)} src={view} alt="view" />
+                            </button>
+                            <button className='border-0 bg-transparent'>
+                              <img src={addcart} alt="addcart" />
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                 )
               })
             }
@@ -270,7 +272,7 @@ const Home = () => {
             {
               productState && productState?.map((item, index) => {
                 return (
-                  <div key={index} className="col-3">
+                  <div key={index} className="col-3" style={{ marginBottom: '20px'}}>
                     <div className="product-card position-relative">
                       <div className="wishlist-icon position-absolute">
                         <button className='border-0 bg-transparent' onClick={(e) => { AddToWishlist(item?._id) }}>
@@ -295,7 +297,7 @@ const Home = () => {
                             <img src={prodcompare} alt="compare" />
                           </button>
                           <button className='border-0 bg-transparent'>
-                            <img onClick={() => navigate('/product/'+item?._id)} src={view} alt="view" />
+                            <img onClick={() => navigate('/product/' + item?._id)} src={view} alt="view" />
                           </button>
                           <button className='border-0 bg-transparent'>
                             <img src={addcart} alt="addcart" />

@@ -3,9 +3,14 @@ import { base_url } from '../../utils/base_url'
 import { config } from "../../utils/axiosconfig"
 
 const getProducts = async (data) => {
-    console.log(data)
-    const response = await axios.get(`${base_url}product?${data?.brand ? `brand=${data?.brand}&&` : ""}${data?.category ? `category=${data?.category}&&` : ""}${data?.minPrice ? `price[gte]=${data?.minPrice}&&` : ""}${data?.maxPrice ? `price[lte]=${data?.maxPrice}&&` : ""}${data?.sort ? `sort=${data?.sort}` : ""}`)
+    const response = await axios.get(`${base_url}product?${data?.brand ? `brand=${data?.brand}&&` : ""}${data?.category ? `category=${data?.category}&&` : ""}${data?.minPrice ? `price[gte]=${data?.minPrice}&&` : ""}${data?.maxPrice ? `price[lte]=${data?.maxPrice}&&` : ""}${data?.sort ? `sort=${data?.sort}` : ""}${data?.page ? `page=${data?.page}&&` : ""}${data?.limit ? `limit=${data?.limit}&&` : ""}`)
+    if (response.data) {
+        return response.data
+    }
+}
 
+const getProductsForRecommenders = async (data) => {
+    const response = await axios.get(`${base_url}product/recommenders`, config)
     if (response.data) {
         return response.data
     }
@@ -55,6 +60,7 @@ const updateQuantityFromCart = async (cartDetail) => {
 
 const productService = {
     getProducts,
+    getProductsForRecommenders,
     getSingleProduct,
     ratingProduct,
     addToWishlist,
