@@ -115,14 +115,14 @@ const Home = () => {
                   <h6>SmartPhones</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/laptop.jpg" alt="laptop" />
+                <img src="images/phone.jpg" alt="laptop" />
               </div>
               <div className='d-flex gap align-items-center'>
                 <div>
                   <h6>Tablets</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/camera.jpg" alt="camera" />
+                <img src="images/tablet.jpg" alt="camera" />
               </div>
               <div className='d-flex gap align-items-center'>
                 <div>
@@ -136,7 +136,7 @@ const Home = () => {
                   <h6>SmartWatches</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/camera.jpg" alt="camera" />
+                <img src="images/watch.jpg" alt="camera" />
               </div>
               <div className='d-flex gap align-items-center'>
                 <div>
@@ -164,7 +164,7 @@ const Home = () => {
                   <h6>Accessories</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/homeapp.jpg" alt="camera" />
+                <img src="images/accessory.jpg" alt="camera" />
               </div>
             </div>
           </div>
