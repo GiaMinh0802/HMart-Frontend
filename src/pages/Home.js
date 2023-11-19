@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { Await, Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Meta from '../components/Meta'
 import Marquee from 'react-fast-marquee'
 import Container from '../components/Container'
@@ -23,10 +23,10 @@ const Home = () => {
     loadPage()
   }, [])
   const loadPage = () => {
-    dispatch(getProducts({ limit: 8, page: 1 }))
     dispatch(getProductsForRecommenders())
     dispatch(getUserCart())
     dispatch(getUserWishlist())
+    dispatch(getProducts({ limit: 8, page: 1 }))
   }
   const AddToWishlist = (id) => {
     dispatch(addToWishlist(id))

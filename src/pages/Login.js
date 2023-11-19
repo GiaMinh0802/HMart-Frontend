@@ -1,5 +1,5 @@
-import React from "react"
-import { useDispatch } from "react-redux"
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from 'react-router-dom'
 import BreadCrumb from '../components/BreadCrumb'
 import Meta from '../components/Meta'
@@ -25,9 +25,21 @@ const Login = () => {
         validationSchema: schema,
         onSubmit: (values) => {
             dispatch(login(values))
-            navigate('/')
         }
     })
+
+    const authState = useSelector((state) => state.auth);
+
+    const { user, isError, isSuccess, isLoading } = authState;
+
+    useEffect(() => {
+        if (isSuccess) {
+            navigate("/");
+            window.location.reload()
+        } else {
+            navigate("/login");
+        }
+    }, [user, isError, isSuccess, isLoading]);
 
     return (
         <>

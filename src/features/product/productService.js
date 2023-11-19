@@ -9,7 +9,7 @@ const getProducts = async (data) => {
     }
 }
 
-const getProductsForRecommenders = async (data) => {
+const getProductsForRecommenders = async () => {
     const response = await axios.get(`${base_url}product/recommenders`, config)
     if (response.data) {
         return response.data
