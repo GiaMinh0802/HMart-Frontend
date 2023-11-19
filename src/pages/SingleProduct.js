@@ -65,6 +65,7 @@ const SingleProduct = () => {
         } else {
             dispatch(addToCart({ productId: productState?._id, quantity, color, price: productState?.price }))
             navigate('/cart')
+            window.location.reload()
         }
     }
 
