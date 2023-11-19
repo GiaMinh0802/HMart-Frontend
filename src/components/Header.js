@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import 'react-bootstrap-typeahead/css/Typeahead.css'
 import { getSingleProduct } from '../features/product/productSlice'
+import { getCategories } from '../features/category/categorySlice'
+
 
 const Header = () => {
   const navigate = useNavigate()
@@ -17,9 +19,15 @@ const Header = () => {
   const cartState = useSelector(state => state?.user?.cart)
   const authState = useSelector(state => state.auth)
   const productState = useSelector(state => state?.product?.products)
+  const categoryState = useSelector(state => state?.category?.categories)
   const [productOpt, setProductOpt] = useState([])
   const [paginate, setPaginate] = useState(true)
   const [total, setTotal] = useState(null)
+
+  useEffect(() => {
+    dispatch(getCategories())
+  }, [])
+
   useEffect(() => {
     let sum = 0
     for (let i = 0; i < cartState.length; i++) {
@@ -145,20 +153,31 @@ const Header = () => {
                       <span className='me-5 d-inline-block'>Shop Categories</span>
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><Link className="dropdown-item text-white" to="">Action</Link></li>
-                      <li><Link className="dropdown-item text-white" to="">Another action</Link></li>
-                      <li><Link className="dropdown-item text-white" to="">Something else here</Link></li>
+                      {
+                        categoryState && categoryState?.map((item, index) => {
+                          return (
+                            <li key={index}><Link className="dropdown-item text-white" to="">{item?.title}</Link></li>
+                          )
+                        })
+                      }
                     </ul>
                   </div>
                 </div>
                 <div className='menu-links'>
                   <div className="d-flex align-items-center gap-15">
                     <NavLink to='/'>Home</NavLink>
-                    <NavLink to='/order'>My Orders</NavLink>
                     <NavLink to='/product'>Our Store</NavLink>
                     <NavLink to='/contact'>Contact</NavLink>
-                    {
+                    {/* {
                       authState?.user === null ? null : <button onClick={handleLogout} className="border border-0 bg-transparent text-white text-uppercase" type='button'>Logout</button>
+                    } */}
+                    {
+                      authState?.user === null ? null :
+                        <>
+                          <NavLink to='/order'>My Orders</NavLink>
+                          <NavLink to='/login' onClick={handleLogout}>LOGOUT</NavLink>
+                        </>
+
                     }
                   </div>
                 </div>

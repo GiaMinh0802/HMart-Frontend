@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import ReactStars from 'react-rating-stars-component'
 import BreadCrumb from '../components/BreadCrumb'
-import Color from '../components/Color'
 import Meta from '../components/Meta'
 import ProductCard from '../components/ProductCard'
-import watch from '../images/watch-1.jpg'
 import Container from '../components/Container'
 import { getProducts } from '../features/product/productSlice'
 
 const OurStore = () => {
+    const dispatch = useDispatch()
+
     const [grid, setGrid] = useState(4)
     const productState = useSelector((state) => state?.product?.products)
     const [brands, setBrands] = useState([])
@@ -34,13 +33,14 @@ const OurStore = () => {
         setCategories(newCategories)
     }, [productState])
 
-    const dispatch = useDispatch()
     useEffect(() => {
         GetProducts()
     }, [sort, brand, category, minPrice, maxPrice])
+
     const GetProducts = () => {
-        dispatch(getProducts({ sort, brand, category, minPrice, maxPrice }))
+        dispatch(getProducts({ sort, brand, category, minPrice, maxPrice, limit: 12, page: 1 }))
     }
+
     return (
         <>
             <Meta title={"Our Store"} />
