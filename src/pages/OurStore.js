@@ -4,6 +4,7 @@ import BreadCrumb from '../components/BreadCrumb'
 import Meta from '../components/Meta'
 import ProductCard from '../components/ProductCard'
 import Container from '../components/Container'
+import Pagination from '../components/Pagination';
 import { getProducts } from '../features/product/productSlice'
 
 const OurStore = () => {
@@ -13,6 +14,9 @@ const OurStore = () => {
     const productState = useSelector((state) => state?.product?.products)
     const [brands, setBrands] = useState([])
     const [categories, setCategories] = useState([])
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [recordsPerPage] = useState(12);
 
     //Filter States
     const [category, setCategory] = useState(null)
@@ -38,8 +42,13 @@ const OurStore = () => {
     }, [sort, brand, category, minPrice, maxPrice])
 
     const GetProducts = () => {
-        dispatch(getProducts({ sort, brand, category, minPrice, maxPrice, limit: 12, page: 1 }))
+        dispatch(getProducts({ sort, brand, category, minPrice, maxPrice, fields: "_id,title,brand,images,description,price,totalrating,category" }))
     }
+
+    const indexOfLastRecord = currentPage * recordsPerPage;
+    const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+    const currentRecords = productState.slice(indexOfFirstRecord, indexOfLastRecord);
+    const nPages = Math.ceil(productState.length / recordsPerPage)
 
     return (
         <>
@@ -116,9 +125,15 @@ const OurStore = () => {
                         </div>
                         <div className="products-list pb-5">
                             <div className="d-flex gap-10 flex-wrap">
-                                <ProductCard data={productState ? productState : []} grid={grid} />
+                                <ProductCard data={currentRecords ? currentRecords : []} grid={grid} />
                             </div>
+                            <Pagination
+                                nPages={nPages}
+                                currentPage={currentPage}
+                                setCurrentPage={setCurrentPage}
+                            />
                         </div>
+
                     </div>
                 </div>
             </Container>

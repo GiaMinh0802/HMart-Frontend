@@ -264,7 +264,7 @@ const SingleProduct = () => {
                             }
                             <div className="reviews mt-4">
                                 {
-                                    productState?.ratings && productState?.ratings?.map((item, index) => {
+                                    productState?.ratings && productState?.ratings.slice(0, 10)?.map((item, index) => {
                                         return (
                                             <div className="review" key={index}>
                                                 <div className="d-flex gap-10 align-items-center">
@@ -290,6 +290,7 @@ const SingleProduct = () => {
                         <ProductCard data={similarProduct} />
                     </div>
                 </div>
+                
             </Container>
         </>
     )

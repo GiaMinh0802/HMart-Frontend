@@ -6,10 +6,8 @@ import Marquee from 'react-fast-marquee'
 import Container from '../components/Container'
 import { services } from '../utils/Data'
 import ReactStars from 'react-rating-stars-component'
-import prodcompare from '../images/prodcompare.svg'
 import wish from '../images/wish.svg'
 import view from '../images/view.svg'
-import addcart from '../images/add-cart.svg'
 import { getProducts, getProductsForRecommenders, addToWishlist } from '../features/product/productSlice'
 import { getUserCart, getUserWishlist } from '../features/user/userSlice'
 import noProduct from '../images/noproduct.png'
@@ -204,13 +202,7 @@ const Home = () => {
                           <div className="action-bar position-absolute">
                             <div className="d-flex flex-column gap-15">
                               <button className='border-0 bg-transparent'>
-                                <img src={prodcompare} alt="compare" />
-                              </button>
-                              <button className='border-0 bg-transparent'>
                                 <img onClick={() => navigate('/product/' + item?._id)} src={view} alt="view" />
-                              </button>
-                              <button className='border-0 bg-transparent'>
-                                <img src={addcart} alt="addcart" />
                               </button>
                             </div>
                           </div>
@@ -272,7 +264,7 @@ const Home = () => {
       <Container class1='popular-wrapper py-5 home-wrapper-2'>
         <div className="row">
           <div className="col-12">
-            <h3 className="section-heading">Our Popular Products</h3>
+            <h3 className="section-heading">New Products</h3>
           </div>
           <div className="row">
             {
@@ -300,13 +292,7 @@ const Home = () => {
                       <div className="action-bar position-absolute">
                         <div className="d-flex flex-column gap-15">
                           <button className='border-0 bg-transparent'>
-                            <img src={prodcompare} alt="compare" />
-                          </button>
-                          <button className='border-0 bg-transparent'>
                             <img onClick={() => navigate('/product/' + item?._id)} src={view} alt="view" />
-                          </button>
-                          <button className='border-0 bg-transparent'>
-                            <img src={addcart} alt="addcart" />
                           </button>
                         </div>
                       </div>

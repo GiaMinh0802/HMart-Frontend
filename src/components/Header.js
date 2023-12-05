@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, Link, useNavigate } from 'react-router-dom'
 import { BsSearch } from 'react-icons/bs'
-import compare from '../images/compare.svg'
 import wishlist from '../images/wishlist.svg'
 import user from '../images/user.svg'
 import cart from '../images/cart.svg'
@@ -48,6 +47,11 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.clear()
     navigate('/login')
+    window.location.reload()
+  }
+
+  const handleOurStore = () => {
+    navigate('/product')
     window.location.reload()
   }
 
@@ -166,11 +170,8 @@ const Header = () => {
                 <div className='menu-links'>
                   <div className="d-flex align-items-center gap-15">
                     <NavLink to='/'>Home</NavLink>
-                    <NavLink to='/product'>Our Store</NavLink>
+                    <NavLink onClick={handleOurStore}>Our Store</NavLink>
                     <NavLink to='/contact'>Contact</NavLink>
-                    {/* {
-                      authState?.user === null ? null : <button onClick={handleLogout} className="border border-0 bg-transparent text-white text-uppercase" type='button'>Logout</button>
-                    } */}
                     {
                       authState?.user === null ? null :
                         <>
