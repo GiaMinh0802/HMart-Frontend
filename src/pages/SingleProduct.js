@@ -268,7 +268,7 @@ const SingleProduct = () => {
                                         return (
                                             <div className="review" key={index}>
                                                 <div className="d-flex gap-10 align-items-center">
-                                                    <h6 className='mb-0'>{item?.postedby === userId ? "Me" : item?.postedby}</h6>
+                                                    <h6 className='mb-0'>{item?.postedby._id === userId ? "Me" : item?.postedby.firstname + " " + item?.postedby.lastname}</h6>
                                                     <ReactStars count={5} size={24} value={item?.star} edit={false} activeColor='#ffd700' />
                                                 </div>
                                                 <p className='mt-3'>{item?.comment}</p>
